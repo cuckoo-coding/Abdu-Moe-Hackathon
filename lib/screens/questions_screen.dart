@@ -1,6 +1,6 @@
 import 'package:abdu_moe_hackathon/blocs/questions_cubit.dart';
 import 'package:abdu_moe_hackathon/models/question.dart';
-import 'package:abdu_moe_hackathon/screens/home_screen.dart';
+import 'package:abdu_moe_hackathon/screens/user_infos_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,7 +28,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             questionsCubit.reset();
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => const HomeScreen(),
+                builder: (context) => const UserInfosScreen(),
               ),
             );
           }
