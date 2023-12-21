@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 class Question {
-  final String question;
+  final String title;
   final String description;
   final String firstAnswer;
   final String secondAnswer;
@@ -10,7 +10,7 @@ class Question {
   final int selectedAnswer;
 
   const Question({
-    required this.question,
+    required this.title,
     required this.description,
     required this.firstAnswer,
     required this.secondAnswer,
@@ -19,7 +19,7 @@ class Question {
   });
 
   Question copyWith({
-    String? question,
+    String? title,
     String? description,
     String? firstAnswer,
     String? secondAnswer,
@@ -27,7 +27,7 @@ class Question {
     int? selectedAnswer,
   }) {
     return Question(
-      question: question ?? this.question,
+      title: title ?? this.title,
       description: description ?? this.description,
       firstAnswer: firstAnswer ?? this.firstAnswer,
       secondAnswer: secondAnswer ?? this.secondAnswer,
@@ -38,7 +38,7 @@ class Question {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'question': question,
+      'title': title,
       'description': description,
       'firstAnswer': firstAnswer,
       'secondAnswer': secondAnswer,
@@ -49,7 +49,7 @@ class Question {
 
   factory Question.fromMap(Map<String, dynamic> map) {
     return Question(
-      question: map['question'] as String,
+      title: map['title'] as String,
       description: map['description'] as String,
       firstAnswer: map['firstAnswer'] as String,
       secondAnswer: map['secondAnswer'] as String,
@@ -65,14 +65,14 @@ class Question {
 
   @override
   String toString() {
-    return 'Question(question: $question, description: $description, firstAnswer: $firstAnswer, secondAnswer: $secondAnswer, thirdAnswer: $thirdAnswer, selectedAnswer: $selectedAnswer)';
+    return 'Question(title: $title, description: $description, firstAnswer: $firstAnswer, secondAnswer: $secondAnswer, thirdAnswer: $thirdAnswer, selectedAnswer: $selectedAnswer)';
   }
 
   @override
   bool operator ==(covariant Question other) {
     if (identical(this, other)) return true;
 
-    return other.question == question &&
+    return other.title == title &&
         other.description == description &&
         other.firstAnswer == firstAnswer &&
         other.secondAnswer == secondAnswer &&
@@ -82,7 +82,7 @@ class Question {
 
   @override
   int get hashCode {
-    return question.hashCode ^
+    return title.hashCode ^
         description.hashCode ^
         firstAnswer.hashCode ^
         secondAnswer.hashCode ^
