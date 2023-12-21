@@ -49,7 +49,7 @@ class _UserInfosScreenState extends State<UserInfosScreen> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) =>
-                              ResultsScreen(estimation: value!),
+                              ResultsScreen(estimation: value),
                         ),
                       );
                     }

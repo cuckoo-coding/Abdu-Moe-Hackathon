@@ -1,7 +1,6 @@
-import 'dart:convert';
-
 import 'package:abdu_moe_hackathon/models/estimation.dart';
 import 'package:abdu_moe_hackathon/services/open_ai_service.dart';
+import 'package:flutter/foundation.dart';
 
 class EstimationService {
   static Future<Estimation?> estimateBasedOnRequirements(String prompt) async {
@@ -35,12 +34,6 @@ Please return only the total hours in json format
     Estimation? estimation;
     if (response != null) {
       try {
-        print(response
-            .split('}')
-            .first
-            .split(':')
-            .last
-            .trim());
         final totalHours = double.tryParse(response
             .split('}')
             .first
@@ -48,17 +41,12 @@ Please return only the total hours in json format
             .last
             .trim()) ??
             340;
-
-        print('?????');
-        print(totalHours);
-
         estimation = Estimation(
             weeks: (totalHours / 40).ceil(),
             price: (totalHours * 40).ceil(),
             description: prompt);
       } catch (e) {
-        print('e');
-        print(e);
+        debugPrint(e.toString());
       }
     }
 

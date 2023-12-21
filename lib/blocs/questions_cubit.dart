@@ -70,9 +70,7 @@ class QuestionsCubit extends Cubit<QuestionsState> {
         : '';
 
     String prompt =
-        'I want to develop a mobile app\n$firstText\n$secondText\n$thirdText\n$fourthText\n$fifthText\n${state.additionalInfos}\n';
-
-    print(prompt);
+        'I want to develop a mobile app\n$firstText\n$secondText\n$thirdText\n$fourthText\n$fifthText\n$sixText\n${state.additionalInfos}\n';
 
     final estimation =
         await EstimationService.estimateBasedOnRequirements(prompt);

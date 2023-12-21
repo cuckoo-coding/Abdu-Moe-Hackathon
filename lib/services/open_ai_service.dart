@@ -17,9 +17,6 @@ class OpenAIService {
 
     if (response?.choices.isNotEmpty ?? false) {
       messageContent = response?.choices.first.message?.content;
-
-      print('messageContent');
-      print(messageContent);
     }
     return messageContent;
   }
