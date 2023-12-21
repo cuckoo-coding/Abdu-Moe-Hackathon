@@ -32,6 +32,7 @@ class QuestionsCubit extends Cubit<QuestionsState> {
     String thirdText = '';
     String fourthText = '';
     String fifthText = '';
+    String sixText = '';
 
     switch (state.questions[0].selectedAnswer) {
       case 0:
@@ -63,6 +64,9 @@ class QuestionsCubit extends Cubit<QuestionsState> {
         : '';
     fifthText = state.questions[4].selectedAnswer == 0
         ? 'The app uses an external service'
+        : '';
+    sixText = state.questions[5].selectedAnswer == 0
+        ? 'The app has chat functionality'
         : '';
 
     String prompt =
@@ -133,6 +137,14 @@ class QuestionsState {
             title: 'Does your product need to use an external service?',
             description:
                 'For example, will your application need to connect to a third party service such as Google Maps or Hubspot?',
+            firstAnswer: "Yes",
+            secondAnswer: 'No',
+            thirdAnswer: "I don't know",
+            selectedAnswer: 0,
+          ),
+          const Question(
+            title: 'Does your product has chat functionality?',
+            description: '',
             firstAnswer: "Yes",
             secondAnswer: 'No',
             thirdAnswer: "I don't know",
