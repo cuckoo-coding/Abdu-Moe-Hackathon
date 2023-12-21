@@ -64,7 +64,7 @@ class QuestionsCubit extends Cubit<QuestionsState> {
         : '';
 
     String prompt =
-        'i want to develop a mobile app,$firstText,$secondText,$thirdText,$fourthText,$fifthText,${state.additionalInfos}';
+        'i want to develop a mobile app,$firstText,$secondText,$thirdText,$fourthText,$fifthText,${state.additionalInfos},Estimate the time of this app and give me a cost? (1 hour = 25 euros)';
 
     print(prompt);
 
