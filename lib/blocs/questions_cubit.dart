@@ -24,6 +24,53 @@ class QuestionsCubit extends Cubit<QuestionsState> {
     emit(state.update(additionalInfos: additionalInfos));
   }
 
+  String getPrompt() {
+    String firstText = '';
+    String secondText = '';
+    String thirdText = '';
+    String fourthText = '';
+    String fifthText = '';
+
+    switch (state.questions[0].selectedAnswer) {
+      case 0:
+        firstText = 'The app is very simple';
+        break;
+      case 1:
+        firstText = 'The app has meduim complexity';
+        break;
+      case 2:
+        firstText = 'The app has complex';
+        break;
+    }
+    secondText =
+        state.questions[1].selectedAnswer == 0 ? 'The app has payment' : '';
+
+    switch (state.questions[2].selectedAnswer) {
+      case 0:
+        thirdText = '';
+        break;
+      case 1:
+        thirdText = 'The app has email authentication';
+        break;
+      case 2:
+        thirdText = 'The app has email & social authentications';
+        break;
+    }
+    fourthText = state.questions[3].selectedAnswer == 0
+        ? 'The app has one of these services GPS or QR Scanner or Bluetooth'
+        : '';
+    fifthText = state.questions[4].selectedAnswer == 0
+        ? 'The app uses an external service'
+        : '';
+
+    String prompt =
+        'i want to develop a mobile app,$firstText,$secondText,$thirdText,$fourthText,$fifthText,${state.additionalInfos}';
+
+    print(prompt);
+
+    return prompt;
+  }
+
   reset() {
     emit(state.update(currentQuestionIndex: 0));
   }
@@ -65,6 +112,14 @@ class QuestionsState {
             firstAnswer: "No",
             secondAnswer: 'Email login',
             thirdAnswer: 'Email/Social/Mobile Login',
+            selectedAnswer: 0,
+          ),
+          const Question(
+            title: 'Does your product have GPS or QR Scanner or Bluetooth?',
+            description: '',
+            firstAnswer: "Yes",
+            secondAnswer: 'No',
+            thirdAnswer: "I don't know",
             selectedAnswer: 0,
           ),
           const Question(

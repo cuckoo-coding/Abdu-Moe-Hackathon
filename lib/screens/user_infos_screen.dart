@@ -43,6 +43,7 @@ class _UserInfosScreenState extends State<UserInfosScreen> {
               FilledButton(
                 onPressed: () {
                   questionsCubit.addAdditionalInfos(controller.text);
+                  questionsCubit.getPrompt();
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
