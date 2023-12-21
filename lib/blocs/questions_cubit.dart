@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:abdu_moe_hackathon/models/estimation.dart';
+import 'package:abdu_moe_hackathon/services/estimation_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:abdu_moe_hackathon/models/question.dart';
@@ -24,7 +26,7 @@ class QuestionsCubit extends Cubit<QuestionsState> {
     emit(state.update(additionalInfos: additionalInfos));
   }
 
-  String getPrompt() {
+  Future<Estimation?> generatePrompt() async {
     String firstText = '';
     String secondText = '';
     String thirdText = '';
@@ -64,11 +66,14 @@ class QuestionsCubit extends Cubit<QuestionsState> {
         : '';
 
     String prompt =
-        'i want to develop a mobile app,$firstText,$secondText,$thirdText,$fourthText,$fifthText,${state.additionalInfos},Estimate the time of this app and give me a cost? (1 hour = 25 euros)';
+        'I want to develop a mobile app\n$firstText\n$secondText\n$thirdText\n$fourthText\n$fifthText\n${state.additionalInfos}\n';
 
     print(prompt);
 
-    return prompt;
+    final estimation =
+        await EstimationService.estimateBasedOnRequirements(prompt);
+
+    return estimation;
   }
 
   reset() {
@@ -80,11 +85,13 @@ class QuestionsState {
   final List<Question> questions;
   final int currentQuestionIndex;
   final String additionalInfos;
+  final Estimation? estimation;
 
   QuestionsState({
     required this.questions,
     required this.currentQuestionIndex,
     required this.additionalInfos,
+    this.estimation,
   });
 
   factory QuestionsState.initial() => QuestionsState(
@@ -136,13 +143,16 @@ class QuestionsState {
         additionalInfos: '',
       );
 
-  QuestionsState update(
-          {int? currentQuestionIndex,
-          List<Question>? questions,
-          String? additionalInfos}) =>
+  QuestionsState update({
+    int? currentQuestionIndex,
+    List<Question>? questions,
+    String? additionalInfos,
+    Estimation? estimation,
+  }) =>
       QuestionsState(
         questions: questions ?? this.questions,
         currentQuestionIndex: currentQuestionIndex ?? this.currentQuestionIndex,
         additionalInfos: additionalInfos ?? this.additionalInfos,
+        estimation: estimation ?? this.estimation,
       );
 }

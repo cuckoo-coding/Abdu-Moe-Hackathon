@@ -1,9 +1,11 @@
-import 'package:abdu_moe_hackathon/models/question.dart';
+import 'dart:convert';
+
+import 'package:abdu_moe_hackathon/models/estimation.dart';
 import 'package:abdu_moe_hackathon/services/open_ai_service.dart';
 
 class EstimationService {
-  static estimateBasedOnRequirements(List<Question> questions) async {
-    OpenAIService.sendMessage('''
+  static Future<Estimation?> estimateBasedOnRequirements(String prompt) async {
+    final response = await OpenAIService.sendMessage('''
 Based on these data:
 1- Complexity
 Simple = 50 hours, Medium = 150 hours , Complex = 300 hours
@@ -15,11 +17,51 @@ Multiple types of users = 30 hours
 GPS = 30 hours
 Bluetooth = 50 hours
 external Services = 100 hours
-UI/UX design = 80 hours.
+UI/UX design = 80 hours
+Chat functionality = 80 hours
+Animations = 60 hours
+if there are more features estimate them based on my calculations and maximum is 100 hours/feature
 
-I want to develop a mobile app
-it has Medium complexity, it has a payment on it, It has email and social authentication, i want UI/UX design
-Estimate the time of this app and give me a cost? (1 hour = 50 euros)
+
+1 hour costs 50 euros
+
+$prompt
+
+Use the provided data above to estimate the time of this app and give me a cost? (1 hour = 50 euros)
+
+Please return only the total hours in json format
 ''');
+
+    Estimation? estimation;
+    if (response != null) {
+      try {
+        print(response
+            .split('}')
+            .first
+            .split(':')
+            .last
+            .trim());
+        final totalHours = double.tryParse(response
+            .split('}')
+            .first
+            .split(':')
+            .last
+            .trim()) ??
+            340;
+
+        print('?????');
+        print(totalHours);
+
+        estimation = Estimation(
+            weeks: (totalHours / 40).ceil(),
+            price: (totalHours * 40).ceil(),
+            description: prompt);
+      } catch (e) {
+        print('e');
+        print(e);
+      }
+    }
+
+    return estimation;
   }
 }

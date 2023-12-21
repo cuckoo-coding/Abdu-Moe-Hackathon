@@ -1,4 +1,5 @@
 import 'package:abdu_moe_hackathon/blocs/questions_cubit.dart';
+import 'package:abdu_moe_hackathon/screens/result_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -43,7 +44,16 @@ class _UserInfosScreenState extends State<UserInfosScreen> {
               FilledButton(
                 onPressed: () {
                   questionsCubit.addAdditionalInfos(controller.text);
-                  questionsCubit.getPrompt();
+                  questionsCubit.generatePrompt().then((value) {
+                    if (value != null) {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ResultsScreen(estimation: value!),
+                        ),
+                      );
+                    }
+                  });
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
