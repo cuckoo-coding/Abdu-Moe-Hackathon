@@ -1,3 +1,4 @@
+import 'package:abdu_moe_hackathon/screens/questions_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -47,7 +48,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 20,
               ),
               FilledButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const QuestionsScreen(),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0),
